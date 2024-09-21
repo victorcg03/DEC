@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formato de Fecha</title>
+</head>
+<body>
+    <script>
+        let fecha = new Date(prompt("Introduce una fecha en formato '12/01/1978':"));
+        let opciones = {year: 'numeric', month: 'long', day: 'numeric'};
+        alert(fecha.toLocaleDateString('es-ES', opciones));
+    </script>
+</body>
+</html>

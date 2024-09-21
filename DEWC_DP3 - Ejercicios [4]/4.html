@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let num1;
+        let num2;
+        do{
+            num1 = parseInt(prompt("Introduce limite inferior:"));
+            num2 = parseInt(prompt("Introduce limite superior:"));
+            if (num1 > num2) {
+                alert("El limite inferior no puede ser un numero mayor al limite superior, vuelve a introducirlos");
+            }
+        }while (num1 > num2)
+        let sumaIntervalo = 0;
+        let numerosFueraIntervalo = [];
+        let introducidoIgualLimites = false;
+        let numeroIntroducido;
+        numeroIntroducido = parseInt(prompt("Introduce un numero (0 para salir)"));
+        while(numeroIntroducido != 0){
+            if (numeroIntroducido > num1 && numeroIntroducido < num2) {
+                sumaIntervalo += numeroIntroducido;
+            } else if (numeroIntroducido < num1 || numeroIntroducido > num2) {
+                numerosFueraIntervalo.push(numeroIntroducido);
+            } else {
+                introducidoIgualLimites = true;
+            }
+            numeroIntroducido = parseInt(prompt("Introduce un numero (0 para salir)"));
+        };
+        alert(`La suma de los números que estaban DENTRO del intervalo es: ${sumaIntervalo}, ${numerosFuera()}, ${introducidoIgualLimites ? "y se ha introducido algún numero igual a los limites" : "y no se ha introducido algún numero igual a los limites"}`);
+        function numerosFuera() {
+            if (numerosFueraIntervalo.length > 0) {
+                return "los numeros introducidos que estaban FUERA del intervalo son " + numerosFueraIntervalo.join(',');
+            }else{
+                return "no se han introducido numeros FUERA del intervalo";
+            }
+        }
+    </script>
+</body>
+</html>

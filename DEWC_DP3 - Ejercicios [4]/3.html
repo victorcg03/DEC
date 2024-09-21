@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let salir = false;
+        let vocales = ["a","e","i","o","u"];
+        while (!salir) {
+            let caracterIntroducido = prompt("Introduce un caracter y te dire si es vocal o no (introduce espacio para salir)");
+            if (caracterIntroducido == " ") {
+                salir = true;
+            } else if (vocales.includes(caracterIntroducido.toLowerCase())){
+                alert("VOCAL");
+            } else {
+                alert("NO VOCAL");
+            }
+        }
+    </script>
+</body>
+</html>

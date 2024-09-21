@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let colorIntroducido = prompt("Introduce un color en formato 'R,G,B' (ej: 177,68,92)");
+        let coloresSeparados = colorIntroducido.split(',');
+        let coloresHex = "#";
+        for (let i = 0; i < coloresSeparados.length; i++) {
+            colorSeguroDecimal = Math.round(parseInt(coloresSeparados[i]) / 51) * 51;
+            colorSeguroHex = colorSeguroDecimal.toString(16).toUpperCase();
+            colorSeguroHex = colorSeguroHex.length === 1 ? "0" + colorSeguroHex : colorSeguroHex;
+            coloresHex+=colorSeguroHex;
+        }
+        alert("El color seguro en hex sería " + coloresHex);
+    </script>
+</body>
+</html>

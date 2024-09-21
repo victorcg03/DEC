@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let acertado = false;
+        let numeroAleatorio = getRandomIntInclusive(1,1000);
+        while (!acertado) {
+            let numeroIntroducido = prompt("Introduce el número que creas que es:");
+            if (numeroIntroducido == numeroAleatorio) {
+                acertado = true;
+                alert("Enhorabuena! Has acertado! El numero era el " + numeroAleatorio);
+            } else if(numeroAleatorio < numeroIntroducido){
+                alert("Has fallado! El numero a adivinar es menor al que has introducido!");
+            } else {
+                alert("Has fallado! El numero a adivinar es mayor al que has introducido!");
+            }
+        }
+        function getRandomIntInclusive(min, max) {
+            const minCeiled = Math.ceil(min);
+            const maxFloored = Math.floor(max);
+            return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
+        }
+    </script>
+</body>
+</html>
