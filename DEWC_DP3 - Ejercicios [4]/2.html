@@ -8,7 +8,7 @@
 <body>
     <script>
         let acertado = false;
-        let numeroAleatorio = getRandomIntInclusive(1,1000);
+        let numeroAleatorio = Math.floor(Math.random() * 1000) + 1;
         while (!acertado) {
             let numeroIntroducido = prompt("Introduce el número que creas que es:");
             if (numeroIntroducido == numeroAleatorio) {
@@ -19,11 +19,6 @@
             } else {
                 alert("Has fallado! El numero a adivinar es mayor al que has introducido!");
             }
-        }
-        function getRandomIntInclusive(min, max) {
-            const minCeiled = Math.ceil(min);
-            const maxFloored = Math.floor(max);
-            return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
         }
     </script>
 </body>
