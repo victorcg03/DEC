@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let inicialNombre = prompt("Introduce tu nombre: ").toUpperCase().charAt(0);
+        let sexo = prompt("Introducee tu sexo (H/M): ").toUpperCase();
+        if (sexo === 'M'){
+            if(inicialNombre < 'M') {
+                alert("Te corresponde el grupo A.");
+            } else if(inicialNombre >= 'M'){
+                alert("Te corresponde el grupo B.");
+            } else{
+                alert("El nombre introducido no es válido.");
+            }
+        } else if(sexo === 'H'){
+            if(inicialNombre >= 'N') {
+                alert("Te corresponde el grupo A.");
+            } else if(inicialNombre < 'M'){
+                alert("Te corresponde el grupo B.");
+            } else{
+                alert("El nombre introducido no es válido.");
+            }
+        } else {
+            alert("El sexo introducido no es válido.");
+        }
+    </script>
+</body>
+</html>

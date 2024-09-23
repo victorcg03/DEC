@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego Serpiente</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const container = document.getElementById("container");
+            const colores = ["red", "blue", "green", "purple", "orange"];
+            const crecimiento = {
+                "red": 1,
+                "blue": 2,
+                "green": 3,
+                "purple": 4,
+                "orange": 5
+            };
+
+            let serpiente = [{ x: 50, y: 50 }]; // Posiciones de la serpiente (cabeza + cuerpo)
+            let direccion = { x: 0, y: 0 };
+            let tamañoSegmento = 20;
+            let intervaloMovimiento;
+            let cuadradoRojo;
+
+            // Crear segmentos de la serpiente
+            function dibujarSerpiente() {
+                container.innerHTML = ''; // Limpiar contenedor
+                serpiente.forEach((segmento, index) => {
+                    const divSegmento = document.createElement('div');
+                    divSegmento.style.width = `${tamañoSegmento}px`;
+                    divSegmento.style.height = `${tamañoSegmento}px`;
+                    divSegmento.style.backgroundColor = index === 0 ? "black" : "gray";
+                    divSegmento.style.position = "absolute";
+                    divSegmento.style.top = `${segmento.y}px`;
+                    divSegmento.style.left = `${segmento.x}px`;
+                    if (index === 0) {
+                        divSegmento.classList.add("cabeza"); // Para los ojos de la cabeza
+                    }
+                    container.appendChild(divSegmento);
+                });
+            }
+
+            // Crear ojos en la cabeza
+            function dibujarOjos() {
+                const cabeza = document.querySelector('.cabeza');
+                if (!cabeza) return;
+
+                // Ojo izquierdo
+                const ojoIzq = document.createElement('div');
+                ojoIzq.classList.add("ojo");
+                ojoIzq.style.left = "4px";
+                ojoIzq.style.top = "5px";
+                cabeza.appendChild(ojoIzq);
+
+                // Ojo derecho
+                const ojoDer = document.createElement('div');
+                ojoDer.classList.add("ojo");
+                ojoDer.style.right = "4px";
+                ojoDer.style.top = "5px";
+                cabeza.appendChild(ojoDer);
+            }
+
+            // Crear un cuadrado de color aleatorio en la pantalla
+            function crearCuadradoAleatorio() {
+                const cuadradoRojo = document.createElement("div");
+                cuadradoRojo.classList.add("cuadradoRojo");
+                let colorAleatorio = colores[Math.floor(Math.random() * colores.length)];
+                cuadradoRojo.style.backgroundColor = colorAleatorio;
+                cuadradoRojo.dataset.crecimiento = crecimiento[colorAleatorio];
+                container.appendChild(cuadradoRojo);
+                colocarCuadradoRojo(cuadradoRojo);
+                return cuadradoRojo;
+            }
+
+            // Colocar el cuadrado rojo en una posición aleatoria
+            function colocarCuadradoRojo(cuadrado) {
+                const maxTop = window.innerHeight - tamañoSegmento;
+                const maxLeft = window.innerWidth - tamañoSegmento;
+
+                const topAleatorio = Math.floor(Math.random() * maxTop);
+                const leftAleatorio = Math.floor(Math.random() * maxLeft);
+
+                cuadrado.style.top = `${topAleatorio}px`;
+                cuadrado.style.left = `${leftAleatorio}px`;
+            }
+
+            // Detectar colisión con el cuadrado rojo
+            function detectarColision() {
+                const cabeza = serpiente[0];
+                const cuadradoRojoRect = cuadradoRojo.getBoundingClientRect();
+                const cabezaRect = {
+                    top: cabeza.y,
+                    left: cabeza.x,
+                    right: cabeza.x + tamañoSegmento,
+                    bottom: cabeza.y + tamañoSegmento
+                };
+
+                if (
+                    cabezaRect.right > cuadradoRojoRect.left &&
+                    cabezaRect.left < cuadradoRojoRect.right &&
+                    cabezaRect.bottom > cuadradoRojoRect.top &&
+                    cabezaRect.top < cuadradoRojoRect.bottom
+                ) {
+                    crecerSerpiente(parseInt(cuadradoRojo.dataset.crecimiento));
+                    cuadradoRojo.remove();
+                    cuadradoRojo = crearCuadradoAleatorio();
+                }
+            }
+
+            // Hacer crecer la serpiente en función del color
+            function crecerSerpiente(cantidad) {
+                for (let i = 0; i < cantidad; i++) {
+                    let últimoSegmento = serpiente[serpiente.length - 1];
+                    serpiente.push({ x: últimoSegmento.x, y: últimoSegmento.y });
+                }
+            }
+
+            // Detectar teclas para mover la serpiente
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "ArrowUp") {
+                    direccion = { x: 0, y: -tamañoSegmento };
+                }
+                if (event.key === "ArrowDown") {
+                    direccion = { x: 0, y: tamañoSegmento };
+                }
+                if (event.key === "ArrowLeft") {
+                    direccion = { x: -tamañoSegmento, y: 0 };
+                }
+                if (event.key === "ArrowRight") {
+                    direccion = { x: tamañoSegmento, y: 0 };
+                }
+            });
+
+            // Movimiento automático de la serpiente
+            function moverSerpiente() {
+                const nuevaCabeza = {
+                    x: serpiente[0].x + direccion.x,
+                    y: serpiente[0].y + direccion.y
+                };
+
+                // Desplazar la serpiente (mover la cabeza y actualizar el cuerpo)
+                serpiente.unshift(nuevaCabeza);
+                serpiente.pop(); // Remover el último segmento para evitar que crezca constantemente
+
+                dibujarSerpiente();
+                dibujarOjos();
+                detectarColision();
+            }
+
+            // Iniciar movimiento cada 100ms
+            intervaloMovimiento = setInterval(moverSerpiente, 100);
+
+            // Crear el primer cuadrado aleatorio y dibujar la serpiente al iniciar
+            cuadradoRojo = crearCuadradoAleatorio();
+            dibujarSerpiente();
+        });
+    </script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 255, 255, 0.322);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .cabeza {
+            position: relative;
+        }
+
+        .ojo {
+            width: 5px;
+            height: 5px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .cuadradoRojo {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            border-radius: 50%; /* Redondeado */
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+</html>

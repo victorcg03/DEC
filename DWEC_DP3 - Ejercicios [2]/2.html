@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arrayNumeros = prompt("Introduce una cadena de números separados por asteríscos:").split('*');
+        console.log(arrayNumeros);
+        arrayNumeros.sort((a,b)=> a-b)
+        console.log(arrayNumeros);
+        alert(arrayNumeros.join('*'));
+    </script>
+</body>
+</html>
