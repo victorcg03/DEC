@@ -1,4 +1,3 @@
-function alerta(){
+export default function (){
     alert("hola");
 }
-export {alerta};

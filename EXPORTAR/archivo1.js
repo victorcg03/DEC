@@ -1,2 +1,2 @@
-import { alerta } from './archivo2.js';
+import alerta from './archivo2.js';
 alerta();
