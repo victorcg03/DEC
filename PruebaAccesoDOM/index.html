@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .noValido{
+            border: 1px solid red;
+        }
+    </style>
+    <script>
+        function si() {
+            document.querySelectorAll('.principal').forEach(el => {
+                el.style.width = '300px';
+                el.style.height = '300px';
+                el.style.backgroundColor = 'gray';
+                el.style.border = '2px double #00ff00';
+                el.style.margin = 'auto';
+            })
+        }
+    </script>
+</head>
+
+<body onload="si()">
+    <div id="contenedor">
+        <div id="uno" class="principal"></div>
+        <div id="dos" class="principal"></div>
+        <div id="tres" class="secundario"></div>
+        <div id="cuatro" class="principal"></div>
+    </div>
+</body>
+
+</html>
