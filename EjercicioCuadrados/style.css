@@ -1,0 +1,50 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    display: inline-flex;   
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+.container{
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 20px;
+}
+button{
+    width:60px;
+}
+.cuadrado{
+    width: 300px;
+    height: 300px;
+    margin-bottom: 34px;
+    box-shadow: 5px 5px 20px 5px #000;
+}
+#cuadrado1{
+    background-color: red;
+}
+#cuadrado2{
+    background-color: blue;
+}
+#cuadrado3{
+    background-color: green;
+}
+#cuadrado4{
+    background-color: gray;
+}
+.circulo{
+    border-radius: 50%;
+}
+.sinSombra{
+    box-shadow: none;
+}
+.sombraInteriorCirculo{
+    box-shadow: inset 0px 0px 100px #000;
+    border-radius: 50%;
+}
