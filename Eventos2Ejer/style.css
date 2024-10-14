@@ -1,0 +1,57 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    min-width: 100vw;
+    min-height: 100vh;
+    padding: 25px 10px;
+}
+.linea{
+    display: flex;
+    width: 100%;
+    height: 40px;
+    margin: 5px 0;
+}
+.columna{
+    display: flex;
+    flex-direction: column;
+    margin: 0 2px;
+    width: 30%;
+    justify-content: center;
+}
+.botones{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.linea button{
+    height: 100%;
+    margin: 0 2px;
+    padding: 5px;
+}
+.eliminar{
+    background-color: rgb(253, 146, 146);
+    border: 1px solid red;
+    color: red;
+}
+.editar{
+    background-color: rgb(197, 255, 211);
+    border: 1px solid rgb(51, 255, 0);
+    color: rgb(0, 124, 0);
+}
+#botonAdd{
+    width: 65px;
+    height: 35px;
+    font-size:30px;
+    position: absolute;
+    right: 45px;
+    bottom: 45px;
+    background-color: rgb(255, 255, 190);
+    border: 1px solid #000;
+}
+#botonAdd:hover, .editarHabilitado:hover, .eliminarHabilitado:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
