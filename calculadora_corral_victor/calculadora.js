@@ -2,7 +2,7 @@ window.addEventListener('load', function(){
     let botones = document.querySelectorAll('.boton');
     let botonPuesto = false;
     botones.forEach(boton => {
-        boton.addEventListener('mousedown', event => {
+        boton.addEventListener('mousedown', () => {
             boton.classList.add('sombra');
             teclaPulsada(boton.innerText)
         })
