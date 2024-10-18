@@ -1,0 +1,82 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 100%;
+    height: 100vh;
+}
+#marcador{
+    height: 12%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items:center;
+    #cronometro{
+        font-size: 30px;
+    }
+    #puntuacion{
+        display: flex;
+        div{
+            width: 80px;
+            height: 40px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            font-size: 30px;
+            font-weight: bolder;
+            margin: 0 3px;
+        }
+        #correctas{
+            justify-content: right;
+            background-color: blue;
+        }
+        #incorrectas{
+            text-align:left;
+            background-color: red;
+        }
+    }
+}
+#main{
+    background-color: #3a3b3c78;
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    padding-bottom: 40px;
+}
+#menu{
+    text-align: center;
+    input[type=radio]{
+        display: none;
+    }
+    #opciones{
+        display: flex;
+        justify-content: center;
+    }
+    .opcion{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 5px;
+        width: 240px;
+        height: 60px;
+        background-color: #ffffff00;
+        border: 1px solid #000;
+        cursor: pointer;
+    }
+    .selected{
+        background-color: rgb(31, 31, 204);
+        color: #fff;
+    }
+    #botonJugar{
+        background-color: #3a3b3c24;
+        border: 1px solid #3a3b3c78;
+        margin-top: 5px;
+        padding: 6px;
+    }
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="./script.js"></script>
+</head>
+<body>
+    <div id="marcador">
+        <div id="cronometro">
+            00:00:00
+        </div>
+        <div id="puntuacion">
+            <div id="correctas">0</div>
+            <div id="incorrectas">0</div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="menu">
+            <p>Selecciona el número de pelotas:</p>
+            <select id="numPelotas">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+            <p>Elige el modo:</p>
+            <div id="opciones">
+                <div class="opcion selected" id="todas">Eliminar todas las pelotas</div>
+                <div class="opcion" id="color">Eliminar un solo color</div>
+            </div>
+            <button id="botonJugar">Jugar</button>
+        </div>
+    </div>
+</body>
+</html>
