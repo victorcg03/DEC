@@ -6,8 +6,12 @@ window.addEventListener('load', ()=>{
     abecedarioEspañol.forEach(letra => {
         teclado.innerHTML += `<div class="tecla" id="${letra}">${letra}</div>`
     });
-    habilitarEventos();
-
+    boton.addEventListener('click', function () {
+        tarjeta.style.display = 'none';
+        document.querySelector('main').classList.remove('opacidad');
+        habilitarEventos();
+    });
+    
     for (let i = 0; i < palabraRandom.length; i++) {
         palabraAdivinar.innerText += '_';
     }
@@ -65,7 +69,7 @@ function comprobarLetra(letra) {
         for (let i = 0; i < palabraRandom.length; i++) {
             if (palabraRandom.toLowerCase().charAt(i) == letra) {
                 setTimeout(() => {
-                    textoActual[i] = letra;
+                    textoActual[i] = palabraRandom.charAt(i);
                     palabraAdivinar.innerText = textoActual.join('');
                 }, i * 100);
             }
@@ -73,6 +77,9 @@ function comprobarLetra(letra) {
     } else {
         oportunidadLetras--;
         oportunidadesLetras.innerText = oportunidadLetras + ' letras restantes';
+    }
+    if (palabraAdivinar.innerText.toLowerCase() == palabraRandom.toLowerCase()) {
+        partidaGanada.style.display = 'flex';
     }
     setTimeout(() => {
         habilitarEventos();

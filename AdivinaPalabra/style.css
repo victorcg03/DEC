@@ -3,7 +3,7 @@
     margin: 0;
     box-sizing: border-box;
 }
-body{
+main{
     min-width: 100vw;
     min-height: 100vh;
     background-color: #3a3b3c;
@@ -73,4 +73,68 @@ body{
     color: #fff;
     left: calc(100% - 300px);
     font-size: 25px;
+}
+.opacidad{
+    filter: blur(5px);
+}
+#tarjeta{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(117, 117, 117);
+    width: 60vw;
+    height: 30vw;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    flex-direction: column;
+    h1{
+        margin-bottom: 45px;
+        color: #fff;
+        font-size: 65px;
+    }
+    button{
+        width: 300px;
+        height: 60px;
+        cursor: pointer;
+    }
+}
+#partidaPerdida{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 69, 69);
+    width: 60vw;
+    height: 30vw;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    display: none;
+    h1{
+        color: #fff;
+        font-size: 65px;
+    }
+}
+#partidaGanada{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(90, 255, 103);
+    width: 60vw;
+    height: 30vw;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    display: none;
+    h1{
+        color: #fff;
+        font-size: 65px;
+    }
 }
