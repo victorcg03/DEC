@@ -1,0 +1,76 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: #3a3b3c;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 5px;
+}
+#teclado {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-color: #6b6b6b5b;
+    width: 80%;
+    height: 40vh;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 0px 6px 8px rgba(69,69,69,1);
+    -moz-box-shadow: 0px 0px 6px 8px rgba(69,69,69,1);
+    box-shadow: 0px 0px 6px 8px rgba(69,69,69,1);
+    padding: 20px;
+}
+
+.tecla {
+    width: 80px;
+    height: 80px;
+    background-color: #3d3d3d;
+    border-radius: 2px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 30px;
+    -webkit-box-shadow: 0px 0px 3px 4px rgba(69,69,69,1);
+    -moz-box-shadow: 0px 0px 3px 4px rgba(69,69,69,1);
+    box-shadow: 0px 0px 3px 4px rgba(69,69,69,1);
+}
+.pulsada{
+    -webkit-box-shadow: inset 0px 0px 6px 8px rgba(46,46,46,1);
+    -moz-box-shadow: inset 0px 0px 6px 8px rgba(46,46,46,1);
+    box-shadow: inset 0px 0px 6px 8px rgba(46,46,46,1);
+}
+.hover{
+    transform:scale(1.05);
+    cursor: pointer;
+}
+#Space{
+    width: 150px;
+}
+#palabraAdivinar{
+    color: #fff;
+    font-size: 80px;
+    letter-spacing: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    font-weight: bold;
+}
+#oportunidadesLetras{
+    position: absolute;
+    top: 30px;
+    width: 300px;
+    color: #fff;
+    left: calc(100% - 300px);
+    font-size: 25px;
+}
