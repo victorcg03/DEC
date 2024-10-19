@@ -42,18 +42,16 @@ body{
 }
 #main{
     background-color: #3a3b3c78;
-    height: 90%;
+    height: 88%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: end;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
+    position: relative;
 }
 #menu{
     text-align: center;
-    input[type=radio]{
-        display: none;
-    }
     #opciones{
         display: flex;
         justify-content: center;
@@ -69,6 +67,9 @@ body{
         border: 1px solid #000;
         cursor: pointer;
     }
+    .opcion:hover{
+        transform: scale(1.05);
+    }
     .selected{
         background-color: rgb(31, 31, 204);
         color: #fff;
@@ -78,5 +79,18 @@ body{
         border: 1px solid #3a3b3c78;
         margin-top: 5px;
         padding: 6px;
+        cursor: pointer;
     }
+    #botonJugar:hover{
+        transform: scale(1.1);
+    }
+}
+.oculto{
+    display: none;
+}
+.pelota{
+    border-radius: 50%;
+    -webkit-box-shadow: 0px 0px 13px 2px rgba(0,0,0,1);
+    -moz-box-shadow: 0px 0px 13px 2px rgba(0,0,0,1);
+    box-shadow: 0px 0px 13px 2px rgba(0,0,0,1);
 }
