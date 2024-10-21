@@ -2,8 +2,8 @@ window.addEventListener('load', ()=>{
     let opciones = document.querySelectorAll('.opcion');
     opciones.forEach(opcion => {
         opcion.addEventListener('click', (event)=>{
-            opciones.forEach(opcion=>{
-                opcion.classList.toggle('selected');
+            opciones.forEach(op=>{
+                op.classList.toggle('selected');
             })
         });
     }); 
@@ -102,39 +102,31 @@ function generarPelotasColor(numeroPelotas, color){
         let top = getRandomIntInclusive(2, 100 - tamano / pantallaJuego.offsetHeight * 100);
         let left = getRandomIntInclusive(2, 100 - tamano / pantallaJuego.offsetWidth * 100);
         let zIndex;
+        let bgColor;
         let rojo;
         let verde;
         let azul;
         let id = "";
         if (pelota < numeroPelotas/2) {
             id = 'objetivo';
-            if (color == 'red') {
-                rojo = 'FF';
-                verde = '00';
-                azul = '00';
-            } else if(color == 'green'){
-                rojo = '00';
-                verde = 'FF';
-                azul = '00';
-            }else{
-                rojo = '00';
-                verde = '00';
-                azul = 'FF';
-            }
+            bgColor = color;
             zIndex = 1;
         }else{
             if (color == 'red') {
                 rojo = '00';
                 verde = getRandomIntInclusive(1,255).toString(16).padStart(2, '0');
                 azul = getRandomIntInclusive(1,255).toString(16).padStart(2, '0');
+                bgColor = "#" + rojo + verde + azul;
             } else if(color == 'green'){
                 rojo = getRandomIntInclusive(1,255).toString(16).padStart(2, '0');
                 verde = '00';
                 azul = getRandomIntInclusive(1,255).toString(16).padStart(2, '0');
+                bgColor = "#" + rojo + verde + azul;
             }else{
                 rojo = getRandomIntInclusive(1,255).toString(16).padStart(2, '0');
                 verde = getRandomIntInclusive(1,255).toString(16).padStart(2, '0');
                 azul = '00';
+                bgColor = "#" + rojo + verde + azul;
             }
             zIndex = 0;
         }
@@ -145,14 +137,14 @@ function generarPelotasColor(numeroPelotas, color){
                                                         z-index:${zIndex};
                                                         width: ${tamano}px;
                                                         height: ${tamano}px;
-                                                        background-color: #${rojo}${verde}${azul};">
+                                                        background-color: ${bgColor};">
                                     </div>`;
     }
 }
 function getRandomIntInclusive(min, max) {
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
-    return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // El máximo es inclusivo y el mínimo es inclusivo
+    return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
 }
 
 
