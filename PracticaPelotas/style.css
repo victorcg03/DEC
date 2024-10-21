@@ -1,25 +1,30 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-body{
+
+body {
     width: 100%;
     height: 100vh;
 }
-#marcador{
+
+#marcador {
     height: 12%;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items:center;
-    #cronometro{
+    align-items: center;
+
+    #cronometro {
         font-size: 30px;
     }
-    #puntuacion{
+
+    #puntuacion {
         display: flex;
-        div{
+
+        div {
             width: 80px;
             height: 40px;
             color: #fff;
@@ -30,17 +35,20 @@ body{
             font-weight: bolder;
             margin: 0 3px;
         }
-        #correctas{
+
+        #correctas {
             justify-content: right;
             background-color: blue;
         }
-        #incorrectas{
-            text-align:left;
+
+        #incorrectas {
+            text-align: left;
             background-color: red;
         }
     }
 }
-#main{
+
+#main {
     background-color: #3a3b3c78;
     height: 88%;
     width: 100%;
@@ -50,13 +58,16 @@ body{
     padding-bottom: 20px;
     position: relative;
 }
-#menu{
+
+#menu {
     text-align: center;
-    #opciones{
+
+    #opciones {
         display: flex;
         justify-content: center;
     }
-    .opcion{
+
+    .opcion {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -67,30 +78,49 @@ body{
         border: 1px solid #000;
         cursor: pointer;
     }
-    .opcion:hover{
+
+    .opcion:hover {
         transform: scale(1.05);
     }
-    .selected{
+
+    .selected {
         background-color: rgb(31, 31, 204);
         color: #fff;
     }
-    #botonJugar{
+
+    #botonJugar {
         background-color: #3a3b3c24;
         border: 1px solid #3a3b3c78;
         margin-top: 5px;
         padding: 6px;
         cursor: pointer;
     }
-    #botonJugar:hover{
+
+    #botonJugar:hover {
         transform: scale(1.1);
     }
 }
-.oculto{
-    display: none;
+
+.oculto {
+    display: none !important;
 }
-.pelota{
+
+.pelota {
     border-radius: 50%;
-    -webkit-box-shadow: 0px 0px 13px 2px rgba(0,0,0,1);
-    -moz-box-shadow: 0px 0px 13px 2px rgba(0,0,0,1);
-    box-shadow: 0px 0px 13px 2px rgba(0,0,0,1);
+    -webkit-box-shadow: 0px 0px 13px 2px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0px 0px 13px 2px rgba(0, 0, 0, 1);
+    box-shadow: 0px 0px 13px 2px rgba(0, 0, 0, 1);
+}
+
+#menuEliminarColor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#infoFinal{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

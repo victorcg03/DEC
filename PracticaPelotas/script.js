@@ -1,13 +1,11 @@
 window.addEventListener('load', ()=>{
     let opciones = document.querySelectorAll('.opcion');
     opciones.forEach(opcion => {
-        opcion.addEventListener('click', (event)=>{
-            opciones.forEach(op=>{
-                op.classList.toggle('selected');
-            })
-        });
+        opcion.addEventListener('click', cambiarOpcion);
     }); 
-    botonJugar.addEventListener('click', ()=>{
+    botonJugar.addEventListener('click', jugar);
+})
+function jugar(){
         menu.classList.add('oculto');
         let numeroPelotas = numPelotas.value;
         let modoJuego = document.getElementsByClassName('selected')[0].id;
@@ -16,9 +14,43 @@ window.addEventListener('load', ()=>{
         } else{
             jugarEliminarColor(numeroPelotas);
         }
+}
+function cambiarOpcion(){
+    let opciones = document.querySelectorAll('.opcion');
+    opciones.forEach(op=>{
+        op.classList.toggle('selected');
+    });
+}
+function finJuego(){
+    let pelotasRestantes = document.querySelectorAll('.pelota');
+    pelotasRestantes.forEach(pelotaEliminar =>{
+        pelotaEliminar.remove();
     })
-})
-
+    horas = 0;
+    minutos = 0;
+    segundos = 0;
+    let pantallaJuego = document.getElementById('main');
+    let infoFinal = document.getElementById('infoFinal');
+    infoFinal.classList.remove('oculto');
+    pantallaJuego.style.flexDirection = 'column';
+    infoFinal.innerHTML += `<button id="reiniciar">Volver a jugar</button>`;
+    pantallaJuego.style.justifyContent = 'start';
+    pantallaJuego.style.alignItems = 'center';
+    cronometro.innerText = '00:00:00';
+    correctas.innerText = '0';
+    incorrectas.innerText = '0';
+    reiniciar.addEventListener('click', ()=>{
+        infoFinal.classList.add('oculto');
+        menu.classList.remove('oculto');
+        let opciones = document.querySelectorAll('.opcion');
+        opciones.forEach(opcion => {
+            opcion.addEventListener('click', cambiarOpcion);
+        }); 
+        botonJugar.addEventListener('click', jugar);
+        pantallaJuego.style.justifyContent = 'end';
+        pantallaJuego.style.paddingBottom = "20px";
+    })
+}
 function jugarEliminarTodas(numeroPelotas){
     generarPelotas(numeroPelotas);
     cronometrar();
@@ -30,9 +62,8 @@ function jugarEliminarTodas(numeroPelotas){
             correctas.innerText = pelotasEliminadas;
             if (pelotasEliminadas == numeroPelotas) {
                 parar();
-                let pantallaJuego = document.getElementById('main');
-                pantallaJuego.style.alignItems = 'start';
-                pantallaJuego.innerHTML += `<p>Has eliminado ${pelotasEliminadas} pelotas, en ${horas*60*60 + minutos * 60 + segundos} segundos</p>`;
+                infoFinal.innerHTML = `<p>Has eliminado ${pelotasEliminadas} pelotas, en ${horas*60*60 + minutos * 60 + segundos} segundos</p>`;
+                finJuego();
             }
         });
     });
@@ -60,14 +91,12 @@ function generarPelotas(numeroPelotas){
 function jugarEliminarColor(numeroPelotas){
     let colores = ['red', 'green', 'blue'];
     colorEliminar = colores[getRandomIntInclusive(0, 2)];
-    let pantallaJuego = document.getElementById('main');
-    pantallaJuego.innerHTML = `<div style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
-                                <p style="margin-bottom:10px">Tienes que eliminar las pelotas de color:</p>
-                                <div class="pelota" style="background-color:${colorEliminar};width:90px;height:90px;margin-bottom:10px"></div>
-                                <button id="botonIniciar">Jugar</button>
-                               </div>`
+    menu.classList.add('oculto');
+    menuEliminarColor.classList.remove('oculto');
+    let pelotaColor = document.getElementById('pelotaEjemplo');
+    pelotaColor.style.backgroundColor = colorEliminar;
     botonIniciar.addEventListener('click', ()=>{
-        pantallaJuego.innerHTML = "";
+        menuEliminarColor.classList.add('oculto');
         generarPelotasColor(numeroPelotas, colorEliminar);
         cronometrar();
         let pelotasEliminadas = 0;
@@ -86,9 +115,8 @@ function jugarEliminarColor(numeroPelotas){
                 }
                 if (pelotasCorrectas == numeroPelotas/2) {
                     parar();
-                    pantallaJuego.innerHTML = "";
-                    pantallaJuego.style.alignItems = 'start';
-                    pantallaJuego.innerHTML += `<p>Has eliminado ${pelotasEliminadas} pelotas, ${pelotasCorrectas} correctas y ${pelotasinCorrectas} incorrectas, en ${horas*60*60 + minutos * 60 + segundos} segundos</p>`;
+                    infoFinal.innerHTML = `<p>Has eliminado ${pelotasEliminadas} pelotas, ${pelotasCorrectas} correctas y ${pelotasinCorrectas} incorrectas, en ${horas*60*60 + minutos * 60 + segundos} segundos</p>`;
+                    finJuego();
                 }
             });
         });
