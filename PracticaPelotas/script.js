@@ -222,12 +222,13 @@ let horas = 0;
 let minutos = 0;
 
 let segundos = 0;
+let cronometro;
     /**********************CRONOMETRO***************************/
     //Comienza a cronometrar
 
     function cronometrar(){
 
-        let cronometro = document.getElementById('cronometro');
+        cronometro = document.getElementById('cronometro');
 
         crearReloj();
 

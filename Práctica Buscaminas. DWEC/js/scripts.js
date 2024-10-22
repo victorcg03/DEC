@@ -10,7 +10,8 @@ function empezarPartida(){
             menu.classList.add('ocultar');
             numeroMinas = numMinas.value;
             let celdas = generarTablero(numeroMinas);
-            console.table(celdas);
+            //Descomentar esta linea para ver la solución en la consola
+            //console.table(celdas);
             imprimirTablero(celdas);
             habilitarEventos();
             puntuacion = 0;
@@ -25,16 +26,16 @@ function revelarCasilla(event){
         finPartida(false);
     } else {
         puntuacion += (event.target.innerText + 1) * numeroMinas;
-        if (casillasReveladas == 100) {
+        if (casillasReveladas == 100-numeroMinas) {
             finPartida(true);
         }
     }
     event.target.removeEventListener('click', revelarCasilla);
 }
-function finPartida(ganada){
+function finPartida(haGanado){
     protector.classList.remove('ocultar');
     mensajeFinal.innerHTML = 
-                                `<p>Has ${ganada ? 'ganado' : 'perdido'} con ${puntuacion} puntos</p>
+                                `<p>Has ${haGanado ? 'ganado' : 'perdido'} con ${puntuacion} puntos</p>
                                 <button id="volverJugar">Volver a jugar</button>`;
     mensajeFinal.classList.remove('ocultar');
     volverJugar.addEventListener('click', ()=>{
@@ -61,10 +62,10 @@ function generarTablero(numeroMinas) {
         tableroArray[columna][fila] = 'bomba';
         tableroArray = actualizarCercanas(columna, fila, tableroArray);
     }
-    //Recorro el array y a las celdas de alrededor de las celdas que son minas les sumo 1, 
-    //para así por cada mina que tengan cerca, irá incrementando ese número (siempre que no sea tambien una bomba)
     return tableroArray;
 }
+//Recorro las celdas de alrededor de la celda que es una mina y les sumo 1, 
+//para así por cada mina que tengan cerca, irá incrementando ese número (siempre que no sea tambien una bomba)
 function actualizarCercanas(columna, fila, tableroArray){
     for (let i = columna-1; i <= columna+1; i++) {
         if (i >= 0 && i <= 9) {
