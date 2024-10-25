@@ -7,6 +7,7 @@ function empezarPartida(){
         if (numMinas.value < 5 || numMinas.value > 50) {
             error.innerText = "Tiene que ser un valor entre 5 y 50";
         } else {
+            error.innerText = "";
             menu.classList.add('ocultar');
             numeroMinas = numMinas.value;
             let celdas = generarTablero(numeroMinas);
@@ -26,6 +27,7 @@ function revelarCasilla(event){
         finPartida(false);
     } else {
         puntuacion += (event.target.innerText + 1) * numeroMinas;
+        puntos.innerText = puntuacion + "\n puntos";
         if (casillasReveladas == 100-numeroMinas) {
             finPartida(true);
         }
@@ -42,6 +44,7 @@ function finPartida(haGanado){
         document.querySelectorAll('.casilla').forEach(casilla=>{
             casilla.remove();
         });
+        puntos.innerText = 0 + "\n puntos";
         mensajeFinal.classList.add('ocultar');
         protector.classList.add('ocultar');
         menu.classList.remove('ocultar');
