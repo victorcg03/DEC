@@ -8,13 +8,26 @@ body{
     height: 100vh;
     padding: 5px;
     display: grid;
-    grid-template-columns: repeat(auto-fill,147.69px);
+    grid-template-columns: repeat(auto-fill,147.60px);
     grid-auto-rows: 230px;
     gap: 5px;
 }
 .carta{
     background-image: url("./card-deck-161536_1920.png");
-    background-position: 0px -230px;
     width: 147.69px;
     height: 230px;
+    transform: scale(0.7);
+}
+.oculta{
+    background-position: -295.4px -920px !important;
+}
+.hover{
+    cursor: pointer;
+    transition: transform 0.3s;
+    transform: scale(1.03) rotate3d(180deg);
+}
+.blanco{
+    width: 147.69px;
+    height: 230px;
+    background-color: #a8a8a8;
 }
