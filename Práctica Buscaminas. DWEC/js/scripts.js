@@ -12,7 +12,7 @@ function empezarPartida(){
             numeroMinas = numMinas.value;
             let celdas = generarTablero(numeroMinas);
             //Descomentar esta linea para ver la solución en la consola
-            //console.table(celdas);
+            console.table(celdas);
             imprimirTablero(celdas);
             habilitarEventos();
             puntuacion = 0;
