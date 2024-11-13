@@ -1,0 +1,146 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    padding: 35px;
+    background-color: yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#tablero {
+    display: grid;
+    grid-template-columns: repeat(21, min(4.46vw, 6.54vh));
+    grid-template-rows: repeat(14, min(4.46vw, 6.54vh));
+    background-color: black;
+    position: relative;
+}
+.celda{
+    width: 100%;
+    height: 100%;
+}
+.camino{
+    background-color: black;
+}
+.columna{
+    background-color: rgb(80, 40, 17);
+}
+.amarillo{
+    background-color: yellow;
+}
+.visitada{
+    background-color:unset;
+    background-image: url('./footprints-png.webp');
+    background-position: center;
+    background-size: 20%;
+    background-repeat:no-repeat;
+    filter: invert(1);
+}
+.jugador{
+    background-image: url('./3716059.png');
+    background-position: center;
+    background-size: cover;
+    filter: invert(0);
+}
+.momia{
+    background-image: url('./creepy-close-up-of-an-ancient-mummy-wrapped-in-bandages-perfect-for-halloween-or-archaeological-themes-png.webp');
+    background-position: center;
+    background-size: cover;
+    filter: invert(0);
+
+}
+.vacio{
+    background-image: url('./verde.jpg');
+    background-size: 300%;
+}
+.cofre{
+    background-color: orange;
+    background-image: url('./cofre.png');
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+}
+.llave{
+    background-color: blue;
+    background-image: url('./llave.webp');
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+}
+.pergamino{
+    background-color: rgba(0, 0, 255, 0.788);
+    background-image: url('./pergamino.webp');
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+}
+.sarcofago{
+    background-color: rgba(0, 0, 255, 0.397);
+    background-image: url('./sarcofago.png');
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+}
+.momiaPilar{
+    background-color: rgba(84, 84, 85, 0.397);
+    background-image: url('./creepy-close-up-of-an-ancient-mummy-wrapped-in-bandages-perfect-for-halloween-or-archaeological-themes-png.webp');
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+}
+#marcador, #vidas{
+    position:absolute;
+    top: -30px;
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 44px;
+    .score{
+        color: rgb(255, 60, 0);
+        margin-right: 30px;
+    }
+    .puntuacion{
+        color: blue;
+        background-color: black;
+    }
+}
+#vidas{
+    right: 20px;
+    display: flex;
+}
+#body{
+    display: none;
+}
+.muerto{
+    z-index: 1;
+    background-color: red;
+    display: block !important;
+    filter: opacity(0);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    animation: blur 0.6s linear;
+}
+.vivo{
+    z-index: 1;
+    background-color: green;
+    display: block !important;
+    filter: opacity(0);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    animation: blur 0.6s linear;
+}
+@keyframes blur {
+    0%{
+        filter: opacity(0);
+    }
+    50%{
+        filter: opacity(0.6);
+    }
+    100%{
+        filter: opacity(0);
+    }
+}
