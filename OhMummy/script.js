@@ -5,10 +5,11 @@ let jugadorX = 9;
 let jugadorY = 1;
 let momias = [];
 let recompensas = [];
-let pergamino = false;
-let sarcofago = false;
-let llave = false;
+let pergamino;
+let sarcofago;
+let llave;
 let numeroMomias;
+let claseJugador = "jugador";
 function empezarNivel() {
     if (llave && sarcofago) {
         body.classList.add('vivo');
@@ -29,12 +30,12 @@ function empezarNivel() {
         }
     }
     if (puntuacion == 0) {
-        numeroMomias = 0;
+        numeroMomias = 1;
     }
     jugadorX = 9;
     jugadorY = 1;
     momias = [];
-    pergamino = false;
+    pergamino = true;
     sarcofago = false;
     llave = false;
     recompensas = ["cofre", "cofre", "cofre","cofre", "cofre", "cofre", "cofre", "cofre", "cofre", "llave", "sarcofago", "pergamino", "momiaPilar", "vacio", "vacio", "vacio",  "vacio", "vacio", "vacio", "vacio"]
@@ -71,25 +72,31 @@ function generarMapa(){
 function moverJugador(e){
     let copiaX = jugadorX;
     let copiaY = jugadorY;
+    let movimiento;
     if (e.key == "w") {
         copiaY--;
+        movimiento = "jugador-arriba";
     } else if (e.key == "s"){
         copiaY++;
+        movimiento = "jugador";
     } else if (e.key == "a"){
+        movimiento = "jugador-izquierda";
         copiaX--;
     } else if (e.key == "d"){
+        movimiento = "jugador-derecha";
         copiaX++;
     }
     if (e.key == "w" || e.key == "s" || e.key == "a" || e.key == "d") {
         if (copiaX > 0 && copiaX <= 21 && copiaY > 0 && copiaY <= 14) {
             let celda = document.querySelector(`[data-x="${copiaX}"][data-y="${copiaY}"]`);
             if (celda.classList.contains("camino")) {
-                celda.classList.add("jugador");
+                celda.classList.add(movimiento);
                 celda.classList.add("visitada");
-                document.querySelector(`[data-x="${jugadorX}"][data-y="${jugadorY}"]`).classList.remove("jugador");
+                document.querySelector(`[data-x="${jugadorX}"][data-y="${jugadorY}"]`).classList.remove(claseJugador);
                 jugadorX = copiaX;
                 jugadorY = copiaY;
                 comprobarColumnas();
+                claseJugador = movimiento;
             }
         }
         moverMomias();
@@ -106,7 +113,8 @@ function generarMomias(numero){
             celda = document.querySelector(`[data-x="${momiaX}"][data-y="${momiaY}"]`);
         }
         celda.classList.add("momia");
-        momias.push([momiaY, momiaX]);
+        direccion = "momia-abajo";
+        momias.push([momiaY, momiaX, direccion]);
     }
 }
 function moverMomias(){
@@ -150,18 +158,41 @@ function moverMomias(){
             movimientosIntentados.push([momiaY, momiaX]);
             if (momiaX > 0 && momiaX <= 21 && momiaY > 0 && momiaY <= 14) {
                 let celda = document.querySelector(`[data-x="${momiaX}"][data-y="${momiaY}"]`);
-                if (celda.classList.contains("camino") && !celda.classList.contains("momia") && !celda.classList.contains("jugador")) {
+                if (celda.classList.contains("camino") && !celda.classList.contains("momia") && !celda.classList.contains(claseJugador)) {
                     celda.classList.add("momia");
                     document.querySelector(`[data-x="${momias[i][1]}"][data-y="${momias[i][0]}"]`).classList.remove("momia");
                     momias[i][1] = momiaX;
                     momias[i][0] = momiaY;
                     momiaMovida = true;
-                } else if (celda.classList.contains("jugador")) {
+                } else if (celda.classList.contains(claseJugador)) {
                     if (!pergamino) {
                         vidas--;
                         empezarNivel();
                         momiaMovida = true;
                     } else {
+                        if (claseJugador == "jugador-derecha" || claseJugador == "jugador-izquierda") {
+                            document.removeEventListener('keydown', moverJugador);
+                            document.querySelector("."+claseJugador).classList.add("ulrich");
+                            setTimeout(() => {
+                                document.querySelector(".ulrich").classList.remove("ulrich");
+                                document.addEventListener('keydown', moverJugador);
+                            }, 300);
+                        } else if(claseJugador == "jugador"){
+                            document.removeEventListener('keydown', moverJugador);
+                            document.querySelector("."+claseJugador).classList.add("patada-abajo");
+                            setTimeout(() => {
+                                document.querySelector(".patada-abajo").classList.remove("patada-abajo");
+                                document.addEventListener('keydown', moverJugador);
+                            }, 300);
+                        } else if(claseJugador = "jugador-arriba"){
+                            document.removeEventListener('keydown', moverJugador);
+                            document.querySelector("."+claseJugador).classList.add("patada-arriba");
+                            setTimeout(() => {
+                                document.querySelector(".patada-arriba").classList.remove("patada-arriba");
+                                document.addEventListener('keydown', moverJugador);
+                            }, 300);
+                        }
+                        
                         document.querySelector(`[data-x="${momias[i][1]}"][data-y="${momias[i][0]}"]`).classList.remove("momia");
                         momias.splice(i,1);
                         momiaMovida = true;

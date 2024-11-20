@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/cade5ed75a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="./script.js"></script>
+</head>
+
+<body>
+    <div id="capaProtectora"></div>
+    <div id="contenedorPrincipal">
+    </div>
+
+    <div class="reproductor">
+        <div id="publicidad">
+            <div id="x"><span>X</span></div>
+            Podrás quitar la publicidad despues de... <span id="tiempoRestante">10</span> segundos.
+        </div>
+        <div id="contenedor">
+            <div id="atras" class="controlPantalla"></div>
+            <video src="./video1.mp4" id="video">
+            </video>
+            <div id="delante" class="controlPantalla"></div>
+        </div>
+        <div id="menu">
+            <div class="progreso">
+                <form>
+                    <progress value="0">
+                    </progress>
+                    <span id="tiempo"></span>
+                </form>
+            </div>
+            <div class="controles">
+                <div><i id="silenciar" class="fa-solid fa-volume-xmark" title="Silenciar"></i></div>
+                <div><i id="retroceder" class="fa-solid fa-angles-left" title="Retroceder 10 segundos"></i></div>
+                <div><i id="play" class="fa-solid fa-play" title="Play/Pause"></i></div>
+                <div><i id="avanzar" class="fa-solid fa-angles-right" title="Avanzar 10 segundos"></i></div>
+                <div><i id="reiniciar" class="fa-solid fa-rotate-right" title="Reiniciar reproducción"></i></div>
+                <div><i id="bajarVolumen" class="fa-solid fa-volume-low" title="Bajar volumen"></i></div>
+                <div><i id="subirVolumen" class="fa-solid fa-volume-high" title="Subir volumen"></i></div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div id="listaVideos">
+
+    </div>
+</body>
+
+</html>

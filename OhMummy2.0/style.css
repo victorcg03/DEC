@@ -1,0 +1,93 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Press Start 2P', sans-serif;
+}
+body{
+   background-color: #252525; 
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   gap: 30px;
+   padding: 30px;
+   width: 100%;
+   max-height: 100vh;
+   height: 100vh;
+   .marcador{
+    width: 70%;
+    height: 90px;
+    background-color: #ffffff8c;
+    }
+    #mapa{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        background-color: black;
+        width: 60%;
+        height: fit-content;
+        .celda {
+            box-sizing: border-box;
+            width: calc(100% * (1/21));
+            aspect-ratio: 1 / 1;
+            flex-grow: 1;
+            background-position: center;
+            background-size: cover;
+        }
+        .amarillo{
+            background-color: yellow;
+        }
+        .columna{
+            background-color: orange;
+        }
+        .camino{
+            background-color: black;
+        }
+        .visitada{
+            box-shadow: inset 0px 0px 0px 1.2vw rgba(0,0,0,1);
+            background-color: yellow;
+        }
+        .enemigo{
+            background-image: url("./fantasma.png");
+            background-color: black;
+            box-shadow: none;
+        }
+        .jugador{
+            background-image: url("./pacman2.png");
+            background-color: black;
+            box-shadow: none;
+        }
+    }
+    #puntuacion{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        left: 10px;
+        height: calc(100% * (1/14));
+        font-size: 1.5vw;
+        color: rgb(180, 0, 0);
+    }
+    #vidas{
+        position: absolute;
+        right: 10px;
+        display: flex;
+        align-items: center;
+        height: calc(100% * (1/14));
+        font-size: 1.5vw;
+        color: rgb(180, 0, 0);
+        #numero{
+            display: flex;
+            background-color: black;
+            gap: 5px;
+            .vida{
+                width: 1.7vw;
+                aspect-ratio: 1/1;
+                background-image: url("./pacman2.png");
+                background-position: center;
+                background-size: cover;
+            }
+        }
+    }
+}

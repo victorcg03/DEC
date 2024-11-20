@@ -1,7 +1,7 @@
 let puntuacion = '00000';
 let mapa;
 let posicionActual;
-let numeroMomias = 1;
+let numeroMomias = 5;
 let vidas = 5;
 window.addEventListener('load', empezarNivel);
 function empezarNivel() {

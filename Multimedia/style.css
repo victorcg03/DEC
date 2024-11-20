@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+video::-webkit-media-controls {
+    display: none;
+}
+body {
+    background-color: #3a3b3c;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#capaProtectora{
+    display: none;
+    z-index: 1;
+}
+#contenedorPrincipal{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 0;
+}
+.reproductor {
+    margin: 20px;
+    width: 65%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    height: fit-content;
+    position: relative;
+    user-select: none;
+    #menu{
+        transform: scaleY(0);
+        transition: transform 0.5s;
+        position: absolute;
+        transform-origin: bottom;
+        bottom: 20px;
+        z-index: 4;
+    }
+    .verMenu{
+        transform: scaleY(1) !important;
+        transform-origin: bottom;
+        transition: transform 0.5s;
+    }
+    .progreso {
+        position: relative;
+        width: 100%;
+        height: fit-content;
+        margin-bottom: 10px;
+        progress {
+            width: 90%;
+            height: 20px;
+            width: 100%;
+            border-radius: 0;
+        }
+        #tiempo {
+            left: 10px;
+            top: 10px;
+            position: absolute;
+            transform: translateY(-50%);
+        }
+    }
+    #contenedor{
+        width: 100%;
+        height: 100%;
+        position: relative;
+        #atras{
+            top: 0px;
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            z-index: 1;
+        }
+        #delante{
+            top: 0px;
+            left: 50%;
+            position: absolute;
+            width: 50%;
+            height: 100%;
+        }
+    }
+    video {
+        width: 100%;
+    }
+    #publicidad{
+        display: none;
+        position: absolute;
+        font-size: 30px;
+        top: 90px;
+        width: 55%;
+        height: 30%;
+        background-color: red;
+        z-index: 3;
+        padding: 15px;
+    }
+    #x{
+        text-align: right;
+        span{
+            background-color: #ffffffb2;
+            padding: 10px;
+            border-radius: 3px;
+            user-select: none;
+        }
+        .clicable{
+            cursor: pointer;
+        }
+    }
+}
+
+.controles {
+    color: #fff;
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
+    >div {
+        font-size: 2rem;
+        background-color: #1b1b1b96;
+        width: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        aspect-ratio: 2/2;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: filter 0.5s, transform 0.3s;
+
+        i {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+    }
+    >div:hover {
+        filter: invert(1);
+        transition: filter 0.5s, transform 0.3s;
+    }
+    .pulsado {
+        transition: filter 0.5s, transform 0.3s;
+        transform: scale(0.9);
+    }
+}
+
+#listaVideos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    padding: 20px 0;
+    gap: 20px;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 1;
+    video{
+        width:80%;
+        transition: transform 0.4s;
+    }
+    video:hover{
+        transform: scale(1.1);
+        cursor: pointer;
+        transition: transform 0.4s;
+    }
+}
+
+.animacion {
+    animation: girar 0.5s linear;
+}
+#capaProtectora{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 2;
+}
+@keyframes girar {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

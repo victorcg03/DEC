@@ -41,17 +41,47 @@ body{
     filter: invert(1);
 }
 .jugador{
-    background-image: url('./3716059.png');
+    background-image: url('./ulrich2.png');
     background-position: center;
-    background-size: cover;
+    background-size: contain;
+    filter: invert(0);
+}
+.jugador-derecha{
+    background-image: url('./ulrich-lado.png');
+    background-position: center;
+    background-size: contain;
+    transform: rotateY(180deg);
+    filter: invert(0);
+}
+.jugador-izquierda{
+    background-image: url('./ulrich-lado.png');
+    background-position: center;
+    background-size: contain;
+    filter: invert(0);
+}
+.jugador-arriba{
+    background-image: url('./ulrich-arriba.png');
+    background-position: center;
+    background-size: contain;
+    filter: invert(0);
+}
+.patada-abajo{
+    background-image: url('./patada-abajo.png');
+    background-position: center;
+    background-size: contain;
+    filter: invert(0);
+}
+.patada-arriba{
+    background-image: url('./patada-arriba.png');
+    background-position: center;
+    background-size: contain;
     filter: invert(0);
 }
 .momia{
-    background-image: url('./creepy-close-up-of-an-ancient-mummy-wrapped-in-bandages-perfect-for-halloween-or-archaeological-themes-png.webp');
+    background-image: url('./Cangrejo.webp');
     background-position: center;
     background-size: cover;
     filter: invert(0);
-
 }
 .vacio{
     background-image: url('./verde.jpg');
@@ -132,6 +162,12 @@ body{
     height: 100vh;
     position: absolute;
     animation: blur 0.6s linear;
+}
+.ulrich{
+    background-image: url('./ulrich.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 @keyframes blur {
     0%{

@@ -1,0 +1,39 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    #mapa{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        background-color: black;
+        width: 90%;
+        height: auto;
+        .celda {
+            box-sizing: border-box;
+            width: calc(90vw * (1/31));
+            height: calc(90vw * (1/31));
+            max-height: calc(95vh * (1/20));
+            aspect-ratio: 1 / 1;
+            flex-grow: 1;
+            background-position: center;
+            background-size: cover;
+        }
+        .cesped{
+            background-image: url("./cesped.webp");
+            background-size: cover;
+        }
+        .camino{
+            background-image: url("./tierra.webp");
+            background-size: cover;
+        }
+    }
+}
