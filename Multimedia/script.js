@@ -1,4 +1,4 @@
-let videos = ["video1.mp4", "video2.mp4", "video3.webm", "video4.mp4"];
+let videos = ["video1.mp4", "video2.mp4", "video3.webm", "video4.mp4", "blob:https://www.youtube.com/77c3c6f8-7d1b-43cd-8335-806dc11d476e"];
 let tiempoPubli;
 window.addEventListener('load', () => {
     setInterval(actualizarTiempo, 500);
