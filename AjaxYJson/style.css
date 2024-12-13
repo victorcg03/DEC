@@ -1,0 +1,22 @@
+.fa-arrow-up{
+    color: green;
+}
+.fa-arrow-down{
+    color: red;
+}
+.fa-arrow-down, .fa-arrow-up{
+    transform: translateY(-50%);
+}
+body{
+    display: flex;
+}
+#fotocasa, #idealista{
+    margin: 0 20px;
+    width: 350px;
+    >details{
+        margin: 30px 0;
+        details{
+            margin: 15px;
+        }
+    }
+}
