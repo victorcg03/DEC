@@ -44,83 +44,70 @@ async function empezarPartida() {
   cartasMaquina = []
   repartirCartas();
   mostrarCartas();
-  ganador = null;
   turnoJugador = Math.random(0, 1) > 0.5;
   puntosJugador = 0;
   puntosMaquina = 0;
-  let x = 0;
-  while (!ganador) {
-    if (cartasElegidas.length == 2) {
-      deliverar();
-      cartasElegidas = [];
+  jugar();
+}
+function jugar() {
+  turnoJugador = !turnoJugador;
+  if (cartasElegidas.length != 2) {
+    if (turnoJugador) {
+      reportero.innerText = "¡Tu turno!";
+      document.querySelectorAll("#tableroPlayer .carta").forEach(carta => carta.addEventListener("click", handleClick));
     } else {
-      if (turnoJugador) {
-        reportero.innerHTML = `<p>¡Tu turno!</p>`;
-        await esperarCartaJugador();
-      } else {
-        reportero.innerHTML = `<p>Jugada de la máquina</p>`;
-        await juegaMaquina();
-      }
+      reportero.innerText = "Turno de la máquina";
+      document.querySelectorAll("#tableroPlayer .carta").forEach(carta => carta.removeEventListener("click", handleClick));
+      juegaMaquina();
     }
-    x++;
-    if (x == 5000) {
-      ganador = true;
-    }
+  } else {
+    deliverar();
   }
 }
 function deliverar() {
-  if (cartasElegidas[0].exp > cartasElegidas[1].exp) {
-    puntosMaquina += cartasElegidas[0].exp + cartasElegidas[1].exp;
-    totalMachine.innerText = puntosMaquina;
-
-  } else if (cartasElegidas[1].exp > cartasElegidas[0].exp){
-    puntosJugador += cartasElegidas[0].exp + cartasElegidas[1].exp;
-    totalPlayer.innerText = puntosJugador;
-  }
-  jugadaPlayer.innerHTML = ``;
-  jugadaMachine.innerHTML = ``;
+  reportero.innerText = "Deliverando...";
+  setTimeout(() => {
+    if (cartasElegidas[0].exp > cartasElegidas[1].exp) {
+      puntosMaquina += cartasElegidas[0].exp + cartasElegidas[1].exp;
+      totalMachine.innerText = puntosMaquina;
+    } else if (cartasElegidas[1].exp > cartasElegidas[0].exp){
+      puntosJugador += cartasElegidas[0].exp + cartasElegidas[1].exp;
+      totalPlayer.innerText = puntosJugador;
+    }
+    jugadaPlayer.innerHTML = ``;
+    jugadaMachine.innerHTML = ``;
+    cartasElegidas = [];
+    jugar();
+  }, 2000);
 }
-async function esperarCartaJugador() {
-    const cartas = document.querySelectorAll("#tableroPlayer .carta");
-    cartas.forEach(carta => carta.addEventListener("click", function handleClick() {
-      const index = cartasJugador.findIndex(carta => carta.nombre === this.dataset.nombre);
-      // console.log(cartasJugador.splice(index, 1)[0]);
-      cartasElegidas[1] = cartasJugador.splice(index, 1)[0];
-      console.log(cartasJugador);
-      jugadaPlayer.innerHTML = cartaTemplate(cartasElegidas[1].nombre, cartasElegidas[1].exp, cartasElegidas[1].img);
-      this.classList.add("invisible");
-      turnoJugador = false;
-      cartas.forEach(carta => carta.removeEventListener("click", handleClick));
-      resolve();
-    }));
+function handleClick(){
+  const cartaSeleccionada = this.dataset.nombre;
+  const index = cartasJugador.findIndex(carta => carta.nombre === cartaSeleccionada);
+  cartasElegidas[1] = cartasJugador.splice(index, 1)[0];
+  jugadaPlayer.innerHTML = cartaTemplate(cartasElegidas[1].nombre, cartasElegidas[1].exp, cartasElegidas[1].img);
+  this.classList.add("invisible");
+  jugar();
 }
 async function juegaMaquina() {
     setTimeout(() => {
+      let cartaElegida;
       if (cartasElegidas.length == 0) {
-        let cartaElegida = cartasMaquina[Math.floor(Math.random() * cartasMaquina.length)];
-        const index = cartasMaquina.findIndex(carta => carta.nombre === cartaElegida.nombre);
-        cartasElegidas[0] = cartasMaquina.splice(index, 1)[0];
-        jugadaMachine.innerHTML = cartaTemplate(cartasElegidas[0].nombre, cartasElegidas[0].exp, cartasElegidas[0].img);
-        tableroMachine.querySelector(`#${cartaElegida.nombre}`).classList.add("invisible");
+        cartaElegida = cartasMaquina[Math.floor(Math.random() * cartasMaquina.length)];
       } else {
         let cartasQueSuperan = cartasMaquina.filter(cartaMaquina => cartaMaquina.exp > cartasElegidas[1].exp);
         if (cartasQueSuperan.length != 0) {
           let cartasOrdenadas = cartasQueSuperan.sort((a,b) => a.exp - b.exp);
-          let cartaElegida = cartasOrdenadas[0];
-          const index = cartasMaquina.findIndex(carta => carta.nombre === cartaElegida.nombre);
-          cartasElegidas[0] = cartasMaquina.splice(index, 1)[0];
-          jugadaMachine.innerHTML = cartaTemplate(cartasElegidas[0].nombre, cartasElegidas[0].exp, cartasElegidas[0].img);
-          tableroMachine.querySelector(`#${cartaElegida.nombre}`).classList.add("invisible");
+          cartaElegida = cartasOrdenadas[0];
         } else {
           let cartasOrdenadas = cartasMaquina.sort((a,b) => a.exp - b.exp);
-          let cartaElegida = cartasOrdenadas[0];
-          const index = cartasMaquina.findIndex(carta => carta.nombre === cartaElegida.nombre);
-          cartasElegidas[0] = cartasMaquina.splice(index, 1)[0];
-          jugadaMachine.innerHTML = cartaTemplate(cartasElegidas[0].nombre, cartasElegidas[0].exp, cartasElegidas[0].img);
-          tableroMachine.querySelector(`#${cartaElegida.nombre}`).classList.add("invisible");
+          cartaElegida = cartasOrdenadas[0];
         }
       }
-      turnoJugador = true;
+      const index = cartasMaquina.findIndex(carta => carta.nombre === cartaElegida.nombre);
+      cartasElegidas[0] = cartasMaquina.splice(index, 1)[0];
+      jugadaMachine.innerHTML = cartaTemplate(cartasElegidas[0].nombre, cartasElegidas[0].exp, cartasElegidas[0].img);
+      tableroMachine.querySelector(`#${cartaElegida.nombre}`).classList.add("invisible");
+      jugar();
     }, 2000);
 }
 function repartirCartas() {
