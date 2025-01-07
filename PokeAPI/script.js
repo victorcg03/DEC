@@ -1,32 +1,17 @@
-let reportero;
 let pokemons = [];
 let cartasJugador;
 let cartasMaquina;
-let tableroMachine;
-let tableroPlayer;
-let jugadaPlayer;
-let jugadaMachine;
-let ganador;
 let turnoJugador;
-let cartasElegidas = [];
+let cartasElegidas = [null, null];
 let puntosJugador;
 let puntosMaquina;
-let totalJugador;
-let totalPlayer;
 window.addEventListener('load', async () => {
-  reportero = document.querySelector("#reportero");
-  tableroMachine = document.querySelector("#tableroMachine");
-  tableroPlayer = document.querySelector("#tableroPlayer");
-  jugadaPlayer = document.querySelector("#jugadaPlayer");
-  jugadaMachine = document.querySelector("#jugadaMachine");
-  totalPlayer = document.querySelector("#totalPlayer");
-  totalMachine = document.querySelector("#totalMachine");
   await cargarPokemons();
   empezarPartida();
 })
 async function cargarPokemons() {
   let pokemonsURL = "https://pokeapi.co/api/v2/pokemon";
-  reportero.innerHTML = `Cargando pokemons... <i class="fa-solid fa-spinner"></i>`
+  document.getElementById("reportero").innerHTML = `Cargando pokemons... <i class="fa-solid fa-spinner"></i>`
   while (pokemonsURL) {
     const res = await fetch(pokemonsURL);
     const dataPokemons = await res.json();
@@ -34,81 +19,119 @@ async function cargarPokemons() {
     dataPokemons.results.map(async ({ url }) => {
       const res = await fetch(url);
       const data = await res.json();
-      pokemons.push({ "nombre": data.name, "exp": data.base_experience, "img": data.sprites.front_default })
+      const pokemon = { "nombre": data.name, "exp": data.base_experience, "img": data.sprites.front_default };
+      if (pokemon.nombre && pokemon.exp && pokemon.img) {
+        pokemons.push(pokemon)
+      }
     })
   }
-  reportero.innerHTML = ``
+  document.getElementById("reportero").innerHTML = ``
 }
 async function empezarPartida() {
+  document.getElementById("ganador").classList.add("display-none");
+  document.getElementById("tableroPlayer").innerHTML = "";
+  document.getElementById("tableroMachine").innerHTML = "";
+  document.getElementById("totalMachine").innerText = 0;
+  document.getElementById("totalPlayer").innerText = 0;
+  document.getElementById("jugadaPlayer").innerHTML = ``;
+  document.getElementById("jugadaMachine").innerHTML = ``;
+  document.querySelectorAll("#cartasPlayer .carta").forEach(carta => carta.remove());
+  document.querySelectorAll("#cartasMachine .carta").forEach(carta => carta.remove());
   cartasJugador = [];
   cartasMaquina = []
   repartirCartas();
   mostrarCartas();
-  turnoJugador = Math.random(0, 1) > 0.5;
+  turnoJugador = Math.random() < 0.5;
   puntosJugador = 0;
   puntosMaquina = 0;
   jugar();
 }
 function jugar() {
-  turnoJugador = !turnoJugador;
-  if (cartasElegidas.length != 2) {
+  document.querySelectorAll("#tableroPlayer .carta").forEach(carta => carta.removeEventListener("click", handleClick));
+  if (cartasElegidas[0] == null || cartasElegidas[1] == null) {
     if (turnoJugador) {
-      reportero.innerText = "¡Tu turno!";
+      document.getElementById("reportero").innerText = "¡Tu turno!";
       document.querySelectorAll("#tableroPlayer .carta").forEach(carta => carta.addEventListener("click", handleClick));
     } else {
-      reportero.innerText = "Turno de la máquina";
-      document.querySelectorAll("#tableroPlayer .carta").forEach(carta => carta.removeEventListener("click", handleClick));
+      document.getElementById("reportero").innerText = "Turno de la máquina";
       juegaMaquina();
     }
+    turnoJugador = !turnoJugador;
   } else {
+    document.getElementById("reportero").innerText = "Deliverando...";
     deliverar();
   }
 }
+function verGanador() {
+  let ganadorDiv = document.getElementById("ganador");
+  if (puntosJugador > puntosMaquina) {
+    ganadorDiv.querySelector("span").innerText = "Tu ganas";
+  } else if (puntosMaquina > puntosJugador){
+    ganadorDiv.querySelector("span").innerText = "Gana la máquina";
+  } else {
+    ganadorDiv.querySelector("span").innerText = "Empate";
+  }
+  ganadorDiv.classList.remove("display-none");
+}
 function deliverar() {
-  reportero.innerText = "Deliverando...";
   setTimeout(() => {
     if (cartasElegidas[0].exp > cartasElegidas[1].exp) {
       puntosMaquina += cartasElegidas[0].exp + cartasElegidas[1].exp;
-      totalMachine.innerText = puntosMaquina;
-    } else if (cartasElegidas[1].exp > cartasElegidas[0].exp){
+      cartasElegidas.map(carta => {
+        document.getElementById("cartasMachine").innerHTML += cartaTemplate(carta.nombre, carta.exp, carta.img);
+      })
+    } else if (cartasElegidas[1].exp > cartasElegidas[0].exp) {
       puntosJugador += cartasElegidas[0].exp + cartasElegidas[1].exp;
-      totalPlayer.innerText = puntosJugador;
+      cartasElegidas.map(carta => {
+        document.getElementById("cartasPlayer").innerHTML += cartaTemplate(carta.nombre, carta.exp, carta.img);
+      })
+    } else {
+      puntosJugador += cartasElegidas[1].exp;
+      puntosMaquina += cartasElegidas[0].exp;
+      document.getElementById("cartasPlayer").innerHTML += cartaTemplate(cartasElegidas[1].nombre, cartasElegidas[1].exp, cartasElegidas[1].img);
+      document.getElementById("cartasMachine").innerHTML += cartaTemplate(cartasElegidas[0].nombre, cartasElegidas[0].exp, cartasElegidas[0].img);
     }
-    jugadaPlayer.innerHTML = ``;
-    jugadaMachine.innerHTML = ``;
-    cartasElegidas = [];
-    jugar();
+    document.getElementById("totalMachine").innerText = puntosMaquina;
+    document.getElementById("totalPlayer").innerText = puntosJugador;
+    document.getElementById("jugadaPlayer").innerHTML = ``;
+    document.getElementById("jugadaMachine").innerHTML = ``;
+    cartasElegidas = [null, null];
+    if (puntosJugador >= 1000 || puntosMaquina >= 1000 || (cartasJugador.length == 0 && cartasMaquina.length == 0)) {
+      verGanador();
+    } else {
+      jugar();
+    }
   }, 2000);
 }
-function handleClick(){
+function handleClick() {
   const cartaSeleccionada = this.dataset.nombre;
   const index = cartasJugador.findIndex(carta => carta.nombre === cartaSeleccionada);
   cartasElegidas[1] = cartasJugador.splice(index, 1)[0];
-  jugadaPlayer.innerHTML = cartaTemplate(cartasElegidas[1].nombre, cartasElegidas[1].exp, cartasElegidas[1].img);
+  document.getElementById("jugadaPlayer").innerHTML = cartaTemplate(cartasElegidas[1].nombre, cartasElegidas[1].exp, cartasElegidas[1].img);
   this.classList.add("invisible");
   jugar();
 }
-async function juegaMaquina() {
-    setTimeout(() => {
-      let cartaElegida;
-      if (cartasElegidas.length == 0) {
-        cartaElegida = cartasMaquina[Math.floor(Math.random() * cartasMaquina.length)];
+function juegaMaquina() {
+  setTimeout(() => {
+    let cartaElegida;
+    if (cartasElegidas[1] == null) {
+      cartaElegida = cartasMaquina[Math.floor(Math.random() * cartasMaquina.length)];
+    } else {
+      let cartasQueSuperan = cartasMaquina.filter(cartaMaquina => cartaMaquina.exp > cartasElegidas[1].exp);
+      if (cartasQueSuperan.length != 0) {
+        let cartasOrdenadas = cartasQueSuperan.sort((a, b) => a.exp - b.exp);
+        cartaElegida = cartasOrdenadas[0];
       } else {
-        let cartasQueSuperan = cartasMaquina.filter(cartaMaquina => cartaMaquina.exp > cartasElegidas[1].exp);
-        if (cartasQueSuperan.length != 0) {
-          let cartasOrdenadas = cartasQueSuperan.sort((a,b) => a.exp - b.exp);
-          cartaElegida = cartasOrdenadas[0];
-        } else {
-          let cartasOrdenadas = cartasMaquina.sort((a,b) => a.exp - b.exp);
-          cartaElegida = cartasOrdenadas[0];
-        }
+        let cartasOrdenadas = cartasMaquina.sort((a, b) => a.exp - b.exp);
+        cartaElegida = cartasOrdenadas[0];
       }
-      const index = cartasMaquina.findIndex(carta => carta.nombre === cartaElegida.nombre);
-      cartasElegidas[0] = cartasMaquina.splice(index, 1)[0];
-      jugadaMachine.innerHTML = cartaTemplate(cartasElegidas[0].nombre, cartasElegidas[0].exp, cartasElegidas[0].img);
-      tableroMachine.querySelector(`#${cartaElegida.nombre}`).classList.add("invisible");
-      jugar();
-    }, 2000);
+    }
+    const index = cartasMaquina.findIndex(carta => carta.nombre === cartaElegida.nombre);
+    cartasElegidas[0] = cartasMaquina.splice(index, 1)[0];
+    document.getElementById("jugadaMachine").innerHTML = cartaTemplate(cartasElegidas[0].nombre, cartasElegidas[0].exp, cartasElegidas[0].img);
+    tableroMachine.querySelector(`#${cartaElegida.nombre}`).classList.add("invisible");
+    jugar();
+  }, 2000);
 }
 function repartirCartas() {
   for (let i = 0; i < 5; i++) {
@@ -126,10 +149,10 @@ function repartirCartas() {
 }
 function mostrarCartas() {
   cartasJugador.map(carta => {
-    tableroPlayer.innerHTML += cartaTemplate(carta.nombre, carta.exp, carta.img)
+    document.getElementById("tableroPlayer").innerHTML += cartaTemplate(carta.nombre, carta.exp, carta.img)
   });
   cartasMaquina.forEach((carta) => {
-    tableroMachine.innerHTML += `<img id="${carta.nombre}" class="carta"src="dorso.jpg"/>`
+    document.getElementById("tableroMachine").innerHTML += `<img id="${carta.nombre}" class="carta"src="dorso.jpg"/>`
   });
 }
 const cartaTemplate = (nombre, exp, img) => {

@@ -12,17 +12,18 @@ body{
   background-color: #3a3b3c;
   padding: 10px;
 }
-#cartasMachine{
+#cartasPlayer,#cartasMachine{
+  overflow-y: auto;
   width: 100%;
-  height: 100%;
   position: relative;
-  border: 1px solid #fff;
-}
-#cartasPlayer{
-  width: 100%;
   height: 100%;
-  position: relative;
   border: 1px solid #fff;
+  display: grid;
+  padding: 10px;
+  gap: 5px;
+  padding-top: 120px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows:max-content;
 }
 #totalPlayer, #totalMachine{
   position: absolute;
@@ -144,4 +145,33 @@ body{
 
 .invisible{
   visibility:hidden ;
+}
+#ganador{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #00000091;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 60px;
+  color: gold;
+  gap: 4rem;
+  button{
+    padding: 15px;
+    border-radius: 5px;
+    background-color: gold;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+}
+.display-none{
+  display: none !important;
 }
