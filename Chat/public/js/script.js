@@ -24,7 +24,8 @@ window.addEventListener('load', ()=>{
       usuarios.innerHTML += usuario(data);
     });
     socket.on('usuarioDesconectado', (data)=>{
-      document.getElementById(data.id).remove();
+      document.getElementById(data.id).closest('details').remove();
+      
     });
     socket.on('mensaje', (data)=>{
       document.getElementById(data.id).innerHTML += `<p class="mensaje otro">${data.mensaje}</p>`;  
