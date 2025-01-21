@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GUASAP</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="./js/script.js" type="application/javascript"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <h3 id="usuarioActual" style="display: none;"></h3>
+  <form id="registro">
+    <div>
+      <input type="text" name="nombre" placeholder="Nombre de usuario...">
+      <button id="boton">Enviar</button>
+    </div>
+    <p id="error" style="display: none;">El campo nombre es obligatorio</p>
+  </form>
+  <div id="chats" style="display: none;">
+    <h4 id="userscon">Usuarios conectados: </h4>
+    <div id="usuarios">
+    </div>
+  </div>
+</body>
+</html>
