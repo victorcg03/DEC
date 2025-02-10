@@ -1,22 +1,23 @@
-module.exports = app => {
+const cors = require("cors");
+const bodyParser = require("body-parser");
 
-  // Importamos el módulo donde se encuentran las Queries que nos devolverán los datos de la BBDD
+module.exports = app => {
+  app.use(cors());
+  app.use(bodyParser.json());
+
   const usuarios = require("../models/usuarios.model.js");
 
-  // Creamos las diferentes rutas y métodos para poder realizar las diferentes acciones.
   /*************************** GET *******************************/
-
-  //Devuelve todos los usuarios
   app.get("/usuarios", usuarios.buscarTodos);
-  
-  //Devuelve un usuario por ID
   app.get("/usuarios/:usuarioId", usuarios.buscarPorID);
-  
-  /*************************** POST *******************************/
 
-  app.get("/crearUsuario", usuarios.crear);
+  /*************************** POST *******************************/
+  app.post("/usuarios", usuarios.crear);
   
   /*************************** PUT *******************************/
-  
+  app.put("/usuarios", usuarios.actualizar);
+
   /*************************** DELETE *******************************/
+  app.delete("/usuarios", usuarios.borrar);
+
 };
